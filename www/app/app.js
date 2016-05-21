@@ -38,9 +38,9 @@ angular.module("frcScouting", ["ionic"])
       url: '/autonomous',
       views: {
         'autonomous': {
-          templateUrl: 'app/autonomous/autonomous.template.html'
-          // controller: 'welcomeCtrl',
-          // controllerAs: 'welcomeCtrl'
+          templateUrl: 'app/autonomous/autonomous.template.html',
+          controller: 'AutonomousCtrl',
+          controllerAs: 'autoCtrl'
         }
       }
     });
