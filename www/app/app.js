@@ -19,22 +19,22 @@ angular.module("frcScouting", ["ionic"])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('home', {
+    .state('app', {
       abstract: true,
-      url: '/home',
-      templateUrl: 'app/home/home.template.html'
+      url: '/app',
+      templateUrl: 'app/menu/menu.template.html'
     })
-    .state('home.welcome', {
+    .state('app.welcome', {
       url: '/welcome',
       views: {
         'welcome': {
-          templateUrl: 'app/home/welcome.template.html',
+          templateUrl: 'app/welcome/welcome.template.html',
           controller: 'welcomeCtrl',
           controllerAs: 'welcomeCtrl'
         }
       }
     })
-    .state('home.autonomous', {
+    .state('app.autonomous', {
       url: '/autonomous',
       views: {
         'autonomous': {
@@ -46,5 +46,5 @@ angular.module("frcScouting", ["ionic"])
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/home/welcome');
+  $urlRouterProvider.otherwise('/app/welcome');
 });

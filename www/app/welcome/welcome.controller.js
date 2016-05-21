@@ -20,7 +20,7 @@
 		}
 
 		function goToAuton () {
-			$state.go('home.autonomous');
+			$state.go('app.autonomous');
 		}
 
 		console.log('Welcome');
