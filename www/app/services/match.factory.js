@@ -5,10 +5,10 @@
 		.module('frcScouting')
 		.factory('MatchSvc', MatchSvc);
 
-	MatchSvc.$inject = [];
+	MatchSvc.$inject = ['CacheFactory'];
 
-	function MatchSvc() {
-		var match = undefined;
+	function MatchSvc(CacheFactory) {
+		var match = CacheFactory.get('matchCache');
 		var matchSevice = {
 			beginMatch: beginMatch,
 			getMatch: getMatch,
@@ -23,10 +23,12 @@
 		}
 
 		function beginMatch() {
+			console.log('before', match);
 			match = {
 				matchNumber: null,
 				teamNumber: null
 			};
+			console.log('after', match);
 		}
 
 		function setMatchNumber(matchNumber) {

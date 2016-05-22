@@ -1,6 +1,6 @@
-angular.module("frcScouting", ["ionic"])
+angular.module("frcScouting", ["ionic", 'angular-cache'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, CacheFactory) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -12,6 +12,18 @@ angular.module("frcScouting", ["ionic"])
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
+    }
+
+    // Caches
+    CacheFactory.destroyAll();
+    CacheFactory.clearAll();
+    var matchCache;
+    if (!CacheFactory.get('matchCache')) {
+      matchCache = CacheFactory('matchCache', {
+        storageMode: 'localStorage',
+        maxAge: 5000, // 1 hour,
+        deleteOnExpire: 'aggressive'
+      });
     }
   });
 })
