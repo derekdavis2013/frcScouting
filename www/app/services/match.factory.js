@@ -8,17 +8,29 @@
 	MatchSvc.$inject = ['CacheFactory'];
 
 	function MatchSvc(CacheFactory) {
-		var match = CacheFactory.get('matchCache');
-		var matchSevice = {
-			beginMatch: beginMatch,
-			getMatch: getMatch,
-			setMatchNumber: setMatchNumber,
-			setTeamNumber: setTeamNumber
-		};
+		var match = {},
+			matchCache = CacheFactory.get('matchCache'),
+			matchSevice = {
+				beginMatch: beginMatch,
+				getMatch: getMatch,
+				setMatchNumber: setMatchNumber,
+				setTeamNumber: setTeamNumber
+			};
 
 		return matchSevice;
 
 		function getMatch() {
+			var cacheKey = 'match',
+				matchData = matchCache.get(cacheKey);
+
+			if(!_.isEmpty(matchData)) {
+				console.log("Found data in cache");
+				match = matchData;
+			} else {
+				console.log("No data in cache");
+				matchCache.put(cacheKey, match);
+			}
+
 			return match;
 		}
 

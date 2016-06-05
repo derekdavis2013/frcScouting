@@ -1,4 +1,4 @@
-angular.module("frcScouting", ["ionic", 'angular-cache'])
+angular.module('frcScouting', ['ionic', 'angular-cache'])
 
 .run(function($ionicPlatform, CacheFactory) {
   $ionicPlatform.ready(function() {
@@ -15,22 +15,22 @@ angular.module("frcScouting", ["ionic", 'angular-cache'])
     }
 
     // Caches
-    CacheFactory.destroyAll();
-    CacheFactory.clearAll();
+    // CacheFactory.destroyAll();
+    // CacheFactory.clearAll();
     var matchCache;
     if (!CacheFactory.get('matchCache')) {
       matchCache = CacheFactory('matchCache', {
         storageMode: 'localStorage',
-        maxAge: 5000, // 1 hour,
+        maxAge: 60 * 60 * 1000, // 1hr
         deleteOnExpire: 'aggressive'
       });
     }
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
+  // Begin routing config
   $stateProvider
-
     .state('app', {
       abstract: true,
       url: '/app',
@@ -59,4 +59,9 @@ angular.module("frcScouting", ["ionic", 'angular-cache'])
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/welcome');
+  // End routing config
+
+  // Begin platform config
+  $ionicConfigProvider.platform.android.tabs.position('bottom');
+  // End platform config
 });
