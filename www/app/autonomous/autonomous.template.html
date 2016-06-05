@@ -1,9 +1,32 @@
 <ion-view>
 	<ion-content>
 		<div class="row">
-			<div class="col col-100 text-center">
+			<div class="col col-top col-100 text-center">
 				<h1>Autonomous</h1>
 			</div>
+		</div>
+		<div ng-if="!autoCtrl.autonomousProperties.autonomousEnabled">
+			<div class="row row-center">
+				<div class="col col-100 text-center">
+					<h4>Does the robot move?</h4>
+				</div>
+			</div>
+			<div class="row row-center text-center">
+				<div class="col col-50">
+					<button class="button button-balanced"
+							ng-click="autoCtrl.enableAutonomous()">
+						<i class="ion-checkmark-round">&nbsp&nbspYes</i>
+					</button>
+				</div>
+				<div class="col col-50">
+					<button class="button button-assertive">
+						<i class="ion-close-round">&nbsp&nbspNo</i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div ng-if="autoCtrl.autonomousProperties.autonomousEnabled">
+			More stuff!
 		</div>
 	</ion-content>
 </ion-view>

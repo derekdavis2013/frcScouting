@@ -10,19 +10,17 @@
 	function MatchSvc(CacheFactory) {
 		var match = {},
 			matchCache = CacheFactory.get('matchCache'),
+			cacheKey = 'match',
+			matchData = matchCache.get(cacheKey),
 			matchSevice = {
 				beginMatch: beginMatch,
 				getMatch: getMatch,
-				setMatchNumber: setMatchNumber,
-				setTeamNumber: setTeamNumber
+				updateMatch: updateMatch
 			};
 
 		return matchSevice;
 
 		function getMatch() {
-			var cacheKey = 'match',
-				matchData = matchCache.get(cacheKey);
-
 			if(!_.isEmpty(matchData)) {
 				console.log("Found data in cache");
 				match = matchData;
@@ -35,21 +33,13 @@
 		}
 
 		function beginMatch() {
-			console.log('before', match);
-			match = {
-				matchNumber: null,
-				teamNumber: null
-			};
-			console.log('after', match);
+			matchCache.removeAll();
 		}
 
-		function setMatchNumber(matchNumber) {
-			match.matchNumber = matchNumber;
-		}
-
-
-		function setTeamNumber(teamNumber) {
-			match.teamNumber = teamNumber;
+		function updateMatch(newProperties) {
+			match = _.merge(match, newProperties);
+			// matchCache.clearAll();
+			matchCache.put(cacheKey, match);
 		}
 	}
 })();

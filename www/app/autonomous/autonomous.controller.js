@@ -8,6 +8,22 @@
 	AutonomousCtrl.$inject = ['MatchSvc'];
 
 	function AutonomousCtrl(MatchSvc) {
-		console.log('You did it ', MatchSvc.getMatch());
+		var vm = this;
+
+		vm.autonomousProperties = {
+			autonomousEnabled: false
+		};
+		
+		vm.enableAutonomous = enableAutonomous;
+
+		init();
+
+		function init() {
+		}
+
+		function enableAutonomous() {
+			console.log('clicked');
+			vm.autonomousProperties.autonomousEnabled = true;
+		}
 	}
 })();
