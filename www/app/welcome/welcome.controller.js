@@ -1,42 +1,26 @@
-(function() {
+(function (){
 	'use strict';
 
 	angular.module('frcScouting')
-	.controller('welcomeCtrl', welcomeCtrl);
+	.controller('welcomeCtrl', ['$state', welcomeCtrl]);
 
-	welcomeCtrl.$inject = ['$state', 'MatchSvc'];
-
-	function welcomeCtrl ($state, MatchSvc) {
+	function welcomeCtrl ($state) {
 		var vm = this;
 
-		vm.matchProperties = {
-			matchNumber: '',
-			teamNumber: ''
-		};
+		vm.matchNumber = '';
+		vm.teamNumber = '';
 
 		vm.isFormValid = isFormValid;
 		vm.goToAuton = goToAuton;
-		vm.submit = submit;
 
-		init();
-
-		function init() {
-			MatchSvc.beginMatch();
-		}
-
-		function isFormValid() {
-			var matchNumber = _.toString(vm.matchProperties.matchNumber),
-				teamNumber = _.toString(vm.matchProperties.teamNumber);
+		function isFormValid () {
+			var matchNumber = _.toString(vm.matchNumber),
+				teamNumber = _.toString(vm.teamNumber);
 			return !((matchNumber.length >= 2) && (teamNumber.length >= 2));
 		}
 
-		function goToAuton() {
+		function goToAuton () {
 			$state.go('app.autonomous');
-		}
-
-		function submit() {
-			MatchSvc.updateMatch(vm.matchProperties);
-			goToAuton();
 		}
 
 		console.log('Welcome');

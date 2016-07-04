@@ -1,33 +1,5 @@
 <ion-view>
 	<ion-content>
-		<div class="row">
-			<div class="col col-top col-100 text-center">
-				<h1>Autonomous</h1>
-			</div>
-		</div>
-		<div ng-if="!autoCtrl.match.autonomousEnabled">
-			<div class="row row-center">
-				<div class="col col-100 text-center">
-					<h4>Does the robot move?</h4>
-				</div>
-			</div>
-			<div class="row row-center text-center">
-				<div class="col col-50">
-					<button class="button button-balanced"
-							ng-click="autoCtrl.enableAutonomous()">
-						<i class="ion-checkmark-round">&nbsp;&nbsp;Yes</i>
-					</button>
-				</div>
-				<div class="col col-50">
-					<button class="button button-assertive"
-							ng-click="autoCtrl.goToTeleop()">
-						<i class="ion-close-round">&nbsp;&nbsp;No</i>
-					</button>
-				</div>
-			</div>
-		</div>
-		<div ng-if="autoCtrl.match.autonomousEnabled">
-			<autonomous-scoring match="autoCtrl.match"></autonomous-scoring>
-		</div>
+		<h1>Autonomous</h1>
 	</ion-content>
 </ion-view>
