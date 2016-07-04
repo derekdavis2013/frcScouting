@@ -10,20 +10,32 @@
 	function AutonomousCtrl(MatchSvc) {
 		var vm = this;
 
-		vm.autonomousProperties = {
-			autonomousEnabled: false
-		};
+		vm.match = MatchSvc.getMatch();
 		
 		vm.enableAutonomous = enableAutonomous;
 
 		init();
 
 		function init() {
+			console.log(MatchSvc.getMatch());
+			// vm.autonomousProperties = MatchSvc.getMatch();
+			console.log(vm.match);
 		}
 
 		function enableAutonomous() {
-			console.log('clicked');
-			vm.autonomousProperties.autonomousEnabled = true;
+			vm.match.isEnabled = true;
+			updateMatch();
+			console.log(MatchSvc.getMatch());
+		}
+
+		// TODO Creat teleop state
+		function goToTeleop() {
+			
+		}
+
+		function updateMatch() {
+			MatchSvc.updateMatch(vm.match);
+			// goToTeleop();
 		}
 	}
 })();

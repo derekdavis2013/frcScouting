@@ -5,7 +5,7 @@
 				<h1>Autonomous</h1>
 			</div>
 		</div>
-		<div ng-if="!autoCtrl.autonomousProperties.autonomousEnabled">
+		<div ng-if="!autoCtrl.match.isEnabled">
 			<div class="row row-center">
 				<div class="col col-100 text-center">
 					<h4>Does the robot move?</h4>
@@ -15,18 +15,18 @@
 				<div class="col col-50">
 					<button class="button button-balanced"
 							ng-click="autoCtrl.enableAutonomous()">
-						<i class="ion-checkmark-round">&nbsp&nbspYes</i>
+						<i class="ion-checkmark-round">&nbsp;&nbsp;Yes</i>
 					</button>
 				</div>
 				<div class="col col-50">
 					<button class="button button-assertive">
-						<i class="ion-close-round">&nbsp&nbspNo</i>
+						<i class="ion-close-round">&nbsp;&nbsp;No</i>
 					</button>
 				</div>
 			</div>
 		</div>
-		<div ng-if="autoCtrl.autonomousProperties.autonomousEnabled">
-			More stuff!
+		<div ng-if="autoCtrl.match.isEnabled">
+			<autonomous-scoring match="autoCtrl.match"></autonomous-scoring>
 		</div>
 	</ion-content>
 </ion-view>
