@@ -5,37 +5,41 @@
 		.module('frcScouting')
 		.factory('MatchSvc', MatchSvc);
 
-	MatchSvc.$inject = [];
+	MatchSvc.$inject = ['CacheFactory'];
 
-	function MatchSvc() {
-		var match = undefined;
-		var matchSevice = {
-			beginMatch: beginMatch,
-			getMatch: getMatch,
-			setMatchNumber: setMatchNumber,
-			setTeamNumber: setTeamNumber
-		};
+	function MatchSvc(CacheFactory) {
+		var match = {},
+			matchCache = CacheFactory.get('matchCache'),
+			cacheKey = 'match',
+			matchData = matchCache.get(cacheKey),
+			matchSevice = {
+				beginMatch: beginMatch,
+				getMatch: getMatch,
+				updateMatch: updateMatch
+			};
 
 		return matchSevice;
 
 		function getMatch() {
+			if(!_.isEmpty(matchData)) {
+				console.log("Found data in cache");
+				match = matchData;
+			} else {
+				console.log("No data in cache");
+				matchCache.put(cacheKey, match);
+			}
+
 			return match;
 		}
 
 		function beginMatch() {
-			match = {
-				matchNumber: null,
-				teamNumber: null
-			};
+			matchCache.removeAll();
 		}
 
-		function setMatchNumber(matchNumber) {
-			match.matchNumber = matchNumber;
-		}
-
-
-		function setTeamNumber(teamNumber) {
-			match.teamNumber = teamNumber;
+		function updateMatch(newProperties) {
+			match = _.merge(match, newProperties);
+			// matchCache.clearAll();
+			matchCache.put(cacheKey, match);
 		}
 	}
 })();

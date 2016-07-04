@@ -9,8 +9,10 @@
 	function welcomeCtrl ($state, MatchSvc) {
 		var vm = this;
 
-		vm.matchNumber = '';
-		vm.teamNumber = '';
+		vm.matchProperties = {
+			matchNumber: '',
+			teamNumber: ''
+		};
 
 		vm.isFormValid = isFormValid;
 		vm.goToAuton = goToAuton;
@@ -23,8 +25,8 @@
 		}
 
 		function isFormValid() {
-			var matchNumber = _.toString(vm.matchNumber),
-				teamNumber = _.toString(vm.teamNumber);
+			var matchNumber = _.toString(vm.matchProperties.matchNumber),
+				teamNumber = _.toString(vm.matchProperties.teamNumber);
 			return !((matchNumber.length >= 2) && (teamNumber.length >= 2));
 		}
 
@@ -33,8 +35,7 @@
 		}
 
 		function submit() {
-			MatchSvc.setMatchNumber(vm.matchNumber);
-			MatchSvc.setTeamNumber(vm.teamNumber);
+			MatchSvc.updateMatch(vm.matchProperties);
 			goToAuton();
 		}
 

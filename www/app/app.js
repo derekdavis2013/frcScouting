@@ -1,6 +1,6 @@
-angular.module("frcScouting", ["ionic"])
+angular.module('frcScouting', ['ionic', 'angular-cache'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, CacheFactory) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -13,12 +13,24 @@ angular.module("frcScouting", ["ionic"])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    // Caches
+    // CacheFactory.destroyAll();
+    // CacheFactory.clearAll();
+    var matchCache;
+    if (!CacheFactory.get('matchCache')) {
+      matchCache = CacheFactory('matchCache', {
+        storageMode: 'localStorage',
+        maxAge: 60 * 60 * 1000, // 1hr
+        deleteOnExpire: 'aggressive'
+      });
+    }
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
+  // Begin routing config
   $stateProvider
-
     .state('app', {
       abstract: true,
       url: '/app',
@@ -43,8 +55,21 @@ angular.module("frcScouting", ["ionic"])
           controllerAs: 'autoCtrl'
         }
       }
+    })
+    .state('app.teleOp', {
+      url: '/teleOp',
+      views: {
+        'teleOp': {
+          templateUrl: 'app/teleOp/teleOp.template.html'
+        }
+      }
     });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/welcome');
+  // End routing config
+
+  // Begin platform config
+  $ionicConfigProvider.platform.android.tabs.position('bottom');
+  // End platform config
 });
