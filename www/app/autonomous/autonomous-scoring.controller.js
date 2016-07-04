@@ -3,9 +3,9 @@
 		module('frcScouting')
 		.controller('AutoScoringCtrl', AutoScoringCtrl);
 
-		AutoScoringCtrl.$inject = ['MatchSvc'];
+		AutoScoringCtrl.$inject = ['$state', 'MatchSvc'];
 
-		function AutoScoringCtrl(MatchSvc) {
+		function AutoScoringCtrl($state, MatchSvc) {
 			var vm = this;
 
 			vm.submit = submit;
@@ -23,7 +23,8 @@
 
 			function submit() {
 				__computeScore();
-				console.log(vm.match);
+				MatchSvc.updateMatch(vm.match);
+				__goToTeleOp();
 			}
 
 
@@ -43,6 +44,10 @@
 
 				vm.match.autonomousScore = score;
 				vm.match.totalScore += vm.match.autonomousScore;
+			}
+
+			function __goToTeleOp() {
+				$state.go('app.teleOp');
 			}
 		}
 })();

@@ -55,6 +55,14 @@ angular.module('frcScouting', ['ionic', 'angular-cache'])
           controllerAs: 'autoCtrl'
         }
       }
+    })
+    .state('app.teleOp', {
+      url: '/teleOp',
+      views: {
+        'teleOp': {
+          templateUrl: 'app/teleOp/teleOp.template.html'
+        }
+      }
     });
 
   // if none of the above states are matched, use this as the fallback
