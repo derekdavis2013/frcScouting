@@ -17,6 +17,7 @@ angular.module('frcScouting', ['ionic', 'angular-cache'])
     // Caches
     // CacheFactory.destroyAll();
     // CacheFactory.clearAll();
+    // ^^For debugging. Remove later.
     var matchCache;
     if (!CacheFactory.get('matchCache')) {
       matchCache = CacheFactory('matchCache', {
@@ -60,7 +61,8 @@ angular.module('frcScouting', ['ionic', 'angular-cache'])
       url: '/teleOp',
       views: {
         'teleOp': {
-          templateUrl: 'app/teleOp/teleOp.template.html'
+          templateUrl: 'app/teleOp/teleOp.template.html',
+          controller: 'TeleOpCtrl'
         }
       }
     });
